@@ -25,7 +25,6 @@ There are 5 customers and 2 items in the store. Each of the items was bought by 
 100
 {97}
 Returns: 97
-
 2.	  	
 10
 {9, 9, 9, 9, 9}
@@ -34,7 +33,6 @@ Returns: 5
 7
 {1, 2, 3}
 Returns: 0
-
 4.	  	
 5
 {3, 3, 3}
