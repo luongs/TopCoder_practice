@@ -15,27 +15,22 @@ Examples
 Returns: 2
 Element 1 (0-based index) is a peak. Its height is 6, which is strictly greater than each of its neighbors' heights (5 and 2). Element 3 is also a peak since its height is 4 and that is strictly greater than its neighbor's height (which is 2).
 1.	
-    	
 {1, 1, 1, 1, 1, 1, 1}
 Returns: 0
 This is a very flat mountain with no peaks.
 2.	
-    	
 {2, 1}
 Returns: 1
 Element 0 is a peak.
 3.	
-    	
 {2,5,3,7,2,8,1,3,1}
 Returns: 4
 The peaks here are the elements with 0-based indices 1, 3, 5, and 7. Their heights are 5, 7, 8, and 3, respectively.
 4.	
-    	
 {1}
 Returns: 1
 Element 0 is a peak. Even though it has no neighbors, the condition from the problem statement is still satisfied.
 5.	
-    	
 {1,2,3,4,4,3,2,1}
 Returns: 0
 According to our definition there is no peak in this mountain range.
