@@ -96,6 +96,35 @@ public class CustomLinkedList {
 		return walker;
 	}
 	
+	public static boolean isPalindrome(CustomLinkedList ll){
+		Node front = ll.head;
+		if (front == null)
+			return false;
+		Node run = front.next;
+		if (run == null)	// one value is always a palindrom
+			return true;
+		Node end = run.next;
+		while (end != null){
+			end = end.next;
+		}
+		while (front != end || run !=end){
+
+			System.out.print(front.value+":"+end.value);
+			if (run.next == end){
+				if (front.value != run.value)
+					return false;
+				else{
+					end = run;
+					front = front.next;
+					run = front.next;
+				}
+			}
+			else 
+				run = run.next;
+		}
+		return true;
+	}
+	 
 	public String toString(){
 		StringBuffer buf = new StringBuffer();
 		while (head!=null){
@@ -113,11 +142,14 @@ public class CustomLinkedList {
 		CustomLinkedList ll = new CustomLinkedList();
 		ll.addToHead(1);
 		ll.addToHead(2);
-		ll.addToHead(3);
-		ll.addToTail(0);
-		ll.remove(3);
+		ll.addToHead(2);
+		ll.addToHead(1);
+		//ll.remove(3);
 		System.out.println(ll);
-
+		if (isPalindrome(ll))
+			System.out.println("Palindrome");
+		else 
+			System.out.println("Not palindrome");
 	}
 
 }
