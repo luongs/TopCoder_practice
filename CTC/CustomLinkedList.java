@@ -32,7 +32,11 @@ public class CustomLinkedList {
 	
 	public void addToTail(int value){
 		Node end = new Node(value);
-		Node temp = head; 
+		Node temp = head;
+		if (temp == null){
+			head = end;
+			return;
+		}
 		while (temp.next!=null){
 			temp = temp.next;
 		}
@@ -59,6 +63,38 @@ public class CustomLinkedList {
 		return head==null;
 	}
 	
+	public boolean checkCycle(CustomLinkedList ll){
+		Node walker = ll.head;
+		Node runner = ll.head.next;
+		if (runner == null|| walker == null)
+			return false;
+		while (walker!=runner){
+			if (runner == null|| walker == null)
+				return false;
+			walker = walker.next;
+			runner = runner.next.next;
+		}
+		return true;
+	}
+	
+	public Node getStartCycle(CustomLinkedList ll){
+		Node walker = ll.head;
+		Node runner = ll.head.next;
+		if (runner == null|| walker == null)
+			return null;
+		while (walker!=runner){
+			if (runner == null|| walker == null)
+				return null;
+			walker = walker.next;
+			runner = runner.next.next;
+		}
+		walker = ll.head; 
+		while (walker!=runner){
+			walker = walker.next;
+			runner = runner.next;
+		}
+		return walker;
+	}
 	
 	public String toString(){
 		StringBuffer buf = new StringBuffer();
