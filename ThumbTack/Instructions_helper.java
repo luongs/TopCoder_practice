@@ -1,4 +1,6 @@
 import java.util.HashMap;
+import java.util.Queue;
+import java.util.Stack;
 
 
 public class Instructions_helper {
@@ -8,6 +10,23 @@ public class Instructions_helper {
 	public static String[] readInstruction(String instr){
 		String[] strArr = instr.split("\\s+");
 		return strArr;
+	}
+	
+	public static void addInstrToStruct(String[] instrArr, Queue<String[]> commandQ, Stack<String[]> txnStack){
+		// check if transaction command is set (BEGIN, ROLLBACK, COMMIT)
+		String command = instrArr[Constants.COMMAND];
+		if (command.equals(Constants.BEGIN)){
+			begin(txnStack);
+		}
+		else if (command.equals(Constants.ROLLBACK)){
+			rollback(txnStack);
+		}
+		else if (command.equals(Constants.COMMIT)){
+			commit(txnStack, commandQ);
+		}
+		else
+			// commands outside block are automatically added to the command queue
+			commandQ.add(instrArr);
 	}
 	
 	public static void executeInstruction(String[] instrArr, HashMap<String, Integer> hm,
@@ -51,6 +70,7 @@ public class Instructions_helper {
 		
 	}
 	
+	// Data commands	
 	public static void set(String name, int value, HashMap<String, Integer> hm, HashMap<Integer, Integer> hmValues){
 		// variable has not been set yet
 		if (!hm.containsKey(name)){
@@ -111,6 +131,20 @@ public class Instructions_helper {
 	
 	public static void end(){
 		System.exit(0);
+	}
+	
+	// Transaction commands
+	
+	public static void begin(Stack<String[]> txnStack){
+		
+	}
+	
+	public static void rollback(Stack<String[]> txnStack){
+		
+	}
+	
+	public static void commit(Stack<String[]> txnStack, Queue<String[]> commandQ){
+		
 	}
 
 }
