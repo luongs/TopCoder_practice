@@ -6,12 +6,14 @@ import java.util.Queue;
 public class Instructions {
 	Queue<String[]> commandQ;
 	Queue<String[]> rollbackQ;
-	HashMap<String, Integer> hm; 
+	HashMap<String, Integer> hm;
+	HashMap<Integer, Integer> hmValues;
 	
 	public Instructions(){
 		commandQ = new LinkedList<String[]>();
 		rollbackQ = new LinkedList<String[]>();
 		hm = new HashMap<String, Integer>();
+		hmValues = new HashMap<Integer, Integer>();
 	}
 	
 	public void saveInstr(String instr){
@@ -23,7 +25,7 @@ public class Instructions {
 	public void execInstr(){
 		while (!commandQ.isEmpty()){
 			String[] tempInstr = commandQ.remove(); 
-			Instructions_helper.executeInstruction(tempInstr, hm);
+			Instructions_helper.executeInstruction(tempInstr, hm, hmValues);
 		}
 	}
 

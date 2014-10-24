@@ -5,14 +5,17 @@ public class Driver {
 		Instructions instr = new Instructions();
 		instr.saveInstr("SET ex 10");
 		instr.saveInstr("GET ex");
+		instr.saveInstr("NUMEQUALTO 10");
 		instr.saveInstr("UNSET ex");
 		instr.saveInstr("GET ex");
 		instr.saveInstr("END");
 		instr.execInstr();
 		
+		/*
 		instr.saveInstr("SET ex 10");
 		instr.saveInstr("GET ex");
 		instr.execInstr();
+		*/
 	}
 
 }

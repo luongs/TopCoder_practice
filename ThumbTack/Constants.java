@@ -8,7 +8,7 @@ public class Constants {
 	public static final String SET = "SET"; 
 	public static final String GET = "GET"; 
 	public static final String UNSET = "UNSET"; 
-	public static final String NUMEQUAL = "NUMEQUAL";
+	public static final String NUMEQUALTO = "NUMEQUALTO";
 	public static final int COMMAND = 0;
 	public static final int VARIABLE = 1;
 	public static final int VALUE = 2;
