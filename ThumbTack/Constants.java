@@ -13,6 +13,11 @@ public class Constants {
 	public static final int VARIABLE = 1;
 	public static final int VALUE = 2;
 	
+	// Messages 
+	public static final String ERROR_NO_VALUE = "ERROR; VALUE NOT SET";
+	public static final String GET_NULL = "NULL";
+	public static final String NUM_EQUAL_TO_NULL = "0"; 
+	
 	
 
 }
