@@ -12,7 +12,7 @@ public class Instructions_helper {
 		// Determine the amount of variables saved
 		String command = instrArr[Constants.COMMAND];
 		if (instrArr.length == 1){
-			// Used for END function
+			end();
 			return; 
 		}
 		String variable = instrArr[Constants.VARIABLE];
