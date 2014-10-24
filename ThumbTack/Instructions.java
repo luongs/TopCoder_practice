@@ -17,6 +17,8 @@ public class Instructions {
 	}
 	
 	public void saveInstr(String instr){
+		if (instr==null)
+			return;
 		String[] instrArr = Instructions_helper.readInstruction(instr); 
 		commandQ.add(instrArr);
 		rollbackQ.add(instrArr); 

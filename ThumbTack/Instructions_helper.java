@@ -2,6 +2,8 @@ import java.util.HashMap;
 
 
 public class Instructions_helper {
+	
+	//TODO: Add proper error handling instead of simply returning
 
 	public static String[] readInstruction(String instr){
 		String[] strArr = instr.split("\\s+");
@@ -14,8 +16,11 @@ public class Instructions_helper {
 		// Determine the amount of variables saved
 		String command = instrArr[Constants.COMMAND];
 		if (instrArr.length == 1){
-			end();
-			return; 
+			if (command.equals(Constants.END))
+				end();
+			else
+				// Invalid command
+				return; 
 		}
 		String variable = instrArr[Constants.VARIABLE];
 		if (instrArr.length == 2){
@@ -24,30 +29,45 @@ public class Instructions_helper {
 				get(variable, hm);
 			else if (command.equals(Constants.UNSET))
 				unset(variable, hm);
-			else{ // NUMEQUALTO
+			else if (command.equals(Constants.NUMEQUALTO)){ // NUMEQUALTO
 				int value = Integer.parseInt(variable);
 				numEqualTo(value, hmValues);
 			}
+			else{
+				// Invalid instruction input
+				return;
+			}
 		}
-		else{	// Used for 3 variables
+		else if (instrArr.length == 3){
 			// SET
 			int value = Integer.parseInt(instrArr[Constants.VALUE]);
 			set(variable, value, hm, hmValues);
+		}
+		else {
+			// Reject > 3 variables
+			return; 
 		}
 		
 		
 	}
 	
 	public static void set(String name, int value, HashMap<String, Integer> hm, HashMap<Integer, Integer> hmValues){
-		if (!hmValues.containsKey(value)){
-			// Relevant for numEqual(), set value count to 1
-			hmValues.put(value, 1);
+		// variable has not been set yet
+		if (!hm.containsKey(name)){
+			hm.put(name, value);
+			// update amount of value present
+			updateHmValues(value, hmValues);
 		}
+		// variable has been set
 		else{
-			// Increment number of value variable
-			hmValues.put(value, hmValues.get(value)+1);
+			// previous value must be decremented for hmValues/hm
+			int previousValue = hm.get(name);
+			decrementHmValues(previousValue, hmValues);
+			hm.remove(name);
+			// update hmValues/hm 
+			hm.put(name, value);
+			updateHmValues(value, hmValues);
 		}
-		hm.put(name, value);
 	}
 	
 	public static void get(String name, HashMap<String, Integer> hm){
@@ -73,6 +93,20 @@ public class Instructions_helper {
 		}
 		else 
 			System.out.println(Constants.NUM_EQUAL_TO_NULL);
+	}
+	
+	public static void updateHmValues(int value, HashMap<Integer, Integer> hmValues){
+		if (!hmValues.containsKey(value)){
+			// New value set, set count to 1
+			hmValues.put(value, 1);
+		}
+		else{
+			hmValues.put(value, hmValues.get(value)+1);
+		}
+	}
+	
+	public static void decrementHmValues(int previousValue, HashMap<Integer, Integer> hmValues){
+		hmValues.put(previousValue, hmValues.get(previousValue)-1);
 	}
 	
 	public static void end(){
