@@ -9,12 +9,14 @@ public class Instructions {
 	Stack<String[]> txnStack;
 	HashMap<String, Integer> hm;
 	HashMap<Integer, Integer> hmValues;
+	boolean setInTxn; 
 	
 	public Instructions(){
 		commandQ = new LinkedList<String[]>();
 		txnStack = new Stack<String[]>();
 		hm = new HashMap<String, Integer>();
 		hmValues = new HashMap<Integer, Integer>();
+		setInTxn = false;
 	}
 	
 	public void saveInstr(String instr){
@@ -22,7 +24,7 @@ public class Instructions {
 			return;
 		String[] instrArr = Instructions_helper.readInstruction(instr); 
 		//commandQ.add(instrArr);
-		Instructions_helper.addInstrToStruct(instrArr, commandQ, txnStack);
+		Instructions_helper.addInstrToStruct(instrArr, commandQ, txnStack, setInTxn);
 	}
 	
 	public void execInstr(){

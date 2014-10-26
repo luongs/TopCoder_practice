@@ -12,21 +12,31 @@ public class Instructions_helper {
 		return strArr;
 	}
 	
-	public static void addInstrToStruct(String[] instrArr, Queue<String[]> commandQ, Stack<String[]> txnStack){
+	public static void addInstrToStruct(String[] instrArr, Queue<String[]> commandQ, 
+										Stack<String[]> txnStack, boolean setInTxn){
 		// check if transaction command is set (BEGIN, ROLLBACK, COMMIT)
 		String command = instrArr[Constants.COMMAND];
+		
 		if (command.equals(Constants.BEGIN)){
-			begin(txnStack);
+			setInTxn = true; 
+			begin(txnStack, instrArr);
 		}
 		else if (command.equals(Constants.ROLLBACK)){
 			rollback(txnStack);
 		}
 		else if (command.equals(Constants.COMMIT)){
+			setInTxn = false; 
 			commit(txnStack, commandQ);
 		}
-		else
+		else{
+			// Other commands within nested blocks are added
+			if (setInTxn)
+				txnStack.add(instrArr);
+			else 
 			// commands outside block are automatically added to the command queue
-			commandQ.add(instrArr);
+				commandQ.add(instrArr);
+		}
+			
 	}
 	
 	public static void executeInstruction(String[] instrArr, HashMap<String, Integer> hm,
@@ -135,16 +145,23 @@ public class Instructions_helper {
 	
 	// Transaction commands
 	
-	public static void begin(Stack<String[]> txnStack){
-		
+	public static void begin(Stack<String[]> txnStack, String[] instrArr){
+		txnStack.push(instrArr);
 	}
 	
 	public static void rollback(Stack<String[]> txnStack){
-		
+		if (!txnStack.isEmpty())
+			txnStack.pop();
+		else 
+			System.out.println("NO TRANSACTION");
 	}
 	
 	public static void commit(Stack<String[]> txnStack, Queue<String[]> commandQ){
-		
+		if (!txnStack.isEmpty()){
+			while (!txnStack.isEmpty())
+				commandQ.add(txnStack.pop());
+		}
+		else 
+			System.out.println("NO TRANSACTION");
 	}
-
 }
