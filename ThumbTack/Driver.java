@@ -3,20 +3,18 @@ public class Driver {
 
 	public static void main(String[] args) {
 		Instructions instr = new Instructions();
-		instr.saveInstr("SET ex 10");
-		instr.saveInstr("SET ex 20");
-		instr.saveInstr("GET ex");
-		instr.saveInstr("NUMEQUALTO 20");
-		instr.saveInstr("UNSET ex");
-		instr.saveInstr("GET ex");
+		instr.saveInstr("BEGIN");
+		instr.saveInstr("SET a 10");
+		instr.saveInstr("GET a");
+		instr.saveInstr("BEGIN");
+		instr.saveInstr("SET a 20");
+		instr.saveInstr("GET a");
+		instr.saveInstr("ROLLBACK");
+		instr.saveInstr("GET a");
+		instr.saveInstr("ROLLBACK");
+		instr.saveInstr("GET a");
 		instr.saveInstr("END");
-		instr.execInstr();
 		
-		/*
-		instr.saveInstr("SET ex 10");
-		instr.saveInstr("GET ex");
-		instr.execInstr();
-		*/
 	}
 
 }
